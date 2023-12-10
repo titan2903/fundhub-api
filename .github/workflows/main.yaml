@@ -23,6 +23,9 @@ jobs:
 
       - name: Debug - Display Contents of .env
         run: cat .env
+      
+      - name: Change permissions of .env
+        run: chmod 664 .env
 
       - name: list of files
         run: ls -la
