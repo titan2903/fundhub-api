@@ -16,7 +16,7 @@ RUN go mod download
 # Copy the local code to the container image.
 COPY . .
 
-# RUN rm .gitignore
+RUN rm .gitignore
 
 # Uncomment the line below if you have an environment file
 COPY .env .env
