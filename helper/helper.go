@@ -1,11 +1,9 @@
 package helper
 
 import (
-	"log"
 	"os"
 
 	"github.com/go-playground/validator/v10"
-	"github.com/joho/godotenv"
 )
 
 type Response struct {
@@ -46,10 +44,10 @@ func FormatValidationError(err error) []string {
 
 func GoDotEnvVariable(key string) string {
 	// load .env file
-	err := godotenv.Load(".env")
-	if err != nil {
-		log.Fatalf("Error loading .env file")
-	}
+	// err := godotenv.Load(".env")
+	// if err != nil {
+	// 	log.Fatalf("Error loading .env file")
+	// }
 
 	return os.Getenv(key)
 }

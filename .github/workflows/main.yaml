@@ -3,7 +3,7 @@ name: Release Charts
 on:
   push:
     branches:
-      - "*"
+      - master
 
 jobs:
   build-push:
@@ -11,10 +11,10 @@ jobs:
     env:
       ENV_FILE: ${{ vars.ENV_FILE }}
     steps:
-      - name: Create env file
-        run: |
-          touch .env
-          echo $ENV_FILE >> .env
+      # - name: Create env file
+      #   run: |
+      #     touch .env
+      #     echo $ENV_FILE >> .env
       
       - name: list of files
         run: ls -la
