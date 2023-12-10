@@ -18,7 +18,6 @@ func ConnectDB() *gorm.DB {
 	// )
 	dsnMaster := helper.GoDotEnvVariable("DATABASE_URL")
 	db, err := gorm.Open(mysql.Open(dsnMaster), &gorm.Config{})
-
 	if err != nil {
 		log.Fatal(err.Error())
 	}
