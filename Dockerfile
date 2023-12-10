@@ -39,6 +39,9 @@ WORKDIR /app
 # Copy the compiled application from the build stage to the final image
 COPY --from=build /app/fundhub-api .
 
+# Copy the environment file to the final image
+COPY --from=build /app/.env .env
+
 # Expose the port if your application listens on a specific port
 EXPOSE 8000
 
