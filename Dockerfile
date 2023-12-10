@@ -17,7 +17,7 @@ RUN go mod download
 COPY . .
 
 # Uncomment the line below if you have an environment file
-COPY .env .env
+COPY .env ./
 
 # Build the Go application
 RUN go build -o fundhub-api
@@ -40,7 +40,7 @@ WORKDIR /app
 COPY --from=build /app/fundhub-api .
 
 # Copy the environment file to the final image
-COPY --from=build /app/.env .env
+COPY --from=build /app/.env .
 
 # Expose the port if your application listens on a specific port
 EXPOSE 8000
