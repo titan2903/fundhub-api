@@ -1,30 +1,46 @@
-# STEP 1: build executable binary
+# STEP 1: Build the executable binary
 
-# Pull golang image
-FROM golang:1.18-alpine as build
+# Use the official Golang image as the build stage
+FROM golang:alpine3.18 AS build
 
-# Additional Label
-LABEL maintainer="Titanio Yudista<titanioyudista98@gmail.com>"
+# Set a label for the maintainer
+LABEL maintainer="Titanio Yudista <titanioyudista98@gmail.com>"
 
-# Add a work directoryer
+# Set the working directory in the build stage
 WORKDIR /app
-# Install make
-RUN apk add --no-cache bash make gcc libc-dev
 
-# Cache and install dependencies
-COPY go.mod ./
-COPY go.sum ./
+# Copy go.mod and go.sum to download dependencies
+COPY go.* ./
 RUN go mod download
-# Copy app files
+
+# Copy the local code to the container image.
 COPY . .
-RUN cp -rf ./.env.example ./.env
-# Build app
+
+# Uncomment the line below if you have an environment file
+# COPY .env.example .env
+
+# Build the Go application
 RUN go build -o fundhub-api
 
-# step 2: build a small image
-FROM alpine:3.16.0
-RUN apk add bash build-base gcompat
+# Create a vendor directory and copy dependencies (optional)
+# RUN go mod vendor
+
+# STEP 2: Create a smaller image for the final application
+
+# Use a minimal Alpine Linux image as the final stage
+FROM alpine:latest
+
+# Install necessary packages for the final image (uncomment if needed)
+# RUN apk add --no-cache bash
+
+# Set the working directory in the final stage
+WORKDIR /app
+
+# Copy the compiled application from the build stage to the final image
 COPY --from=build /app/fundhub-api .
-# Expose port
+
+# Expose the port if your application listens on a specific port
 EXPOSE 8000
-CMD ["/fundhub-api"]
+
+# Define the command to run your application
+CMD ["./fundhub-api"]
