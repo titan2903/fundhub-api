@@ -17,7 +17,7 @@ RUN go mod download
 COPY . .
 
 # Uncomment the line below if you have an environment file
-COPY .env ./
+COPY /home/runner/work/fundhub-api/fundhub-api/.env .env
 
 # Build the Go application
 RUN go build -o fundhub-api
