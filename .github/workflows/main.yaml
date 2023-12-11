@@ -15,6 +15,9 @@ jobs:
       
       - name: Check go version
         run: go version
+      
+      - name: list of files
+        run: rm -rf .gitignore
 
       - name: Create env file
         run: |

@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"fundhub-api/campaign"
 	"fundhub-api/helper"
 	"fundhub-api/transaction"
@@ -12,11 +13,16 @@ import (
 )
 
 func ConnectDB() *gorm.DB {
-	// dsnMaster := fmt.Sprintf(
-	// 	"host=%s user=%s password=%s dbname=%s port=%s",
-	// 	helper.GoDotEnvVariable("DB_HOST"), helper.GoDotEnvVariable("DB_USER"), helper.GoDotEnvVariable("DB_PASSWORD"), helper.GoDotEnvVariable("DB_NAME"), helper.GoDotEnvVariable("DB_PORT"),
-	// )
-	dsnMaster := helper.GoDotEnvVariable("DATABASE_URL")
+	dsnMaster := fmt.Sprintf(
+		"%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
+		helper.GoDotEnvVariable("DB_USER"),
+		helper.GoDotEnvVariable("DB_PASSWORD"),
+		helper.GoDotEnvVariable("DB_HOST"),
+		helper.GoDotEnvVariable("DB_PORT"),
+		helper.GoDotEnvVariable("DB_NAME"),
+	)
+
+	// dsnMaster := helper.GoDotEnvVariable("DATABASE_URL")
 	db, err := gorm.Open(mysql.Open(dsnMaster), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err.Error())
