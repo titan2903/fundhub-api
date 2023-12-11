@@ -14,33 +14,23 @@ COPY go.* ./
 RUN go mod download
 
 # Copy the local code to the container image.
-COPY . ./
+COPY . .
+COPY .env .
 
 # Build the Go application
-RUN go build -o fundhub-api
-
-# Create a vendor directory and copy dependencies (optional)
-# RUN go mod vendor
+RUN go build -o fundhub-api .
 
 # STEP 2: Create a smaller image for the final application
 
 # Use a minimal Alpine Linux image as the final stage
 FROM alpine:latest
 
-# Install necessary packages for the final image (uncomment if needed)
-# RUN apk add --no-cache bash
-
 # Set the working directory in the final stage
 WORKDIR /app
 
-# Copy the compiled application from the build stage to the final image
+# Copy only the necessary artifacts from the build stage
 COPY --from=build /app/fundhub-api .
-
-# # Uncomment the line below if you have an environment file
-COPY .env .
-
-# Copy the environment file to the final image
-# COPY --from=build /app/.env .
+COPY --from=build /app/.env .
 
 # Expose the port if your application listens on a specific port
 EXPOSE 8000

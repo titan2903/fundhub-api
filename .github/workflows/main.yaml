@@ -8,26 +8,23 @@ on:
 jobs:
   build-push:
     runs-on: ubuntu-latest
-    env:
-      ENV_FILE: ${{ vars.ENV_FILE }}
+    # env:
+    #   ENV_FILE: ${{ vars.ENV_FILE }}
     steps:
       - uses: actions/checkout@v4
       
       - name: Check go version
         run: go version
 
-      - name: Add env variables to .env file
-        run: |
-          echo $ENV_FILE >> .env
+      # - name: Add env variables to .env file
+      #   run: |
+      #     echo $ENV_FILE >> .env
 
-      - name: Debug - Display Contents of .env
-        run: cat .env
+      # - name: Debug - Display Contents of .env
+      #   run: cat .env
 
       - name: list of files
         run: ls -la
-      
-      - name: current working directory
-        run: pwd
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
@@ -38,6 +35,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
+          context: .
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/fundhub-api:latest
 
