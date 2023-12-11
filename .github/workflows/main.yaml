@@ -15,13 +15,9 @@ jobs:
       
       - name: Check go version
         run: go version
-      
-      - name: list of files
-        run: rm -rf .gitignore
 
-      - name: Create env file
+      - name: Add env variables to .env file
         run: |
-          touch .env
           echo $ENV_FILE >> .env
 
       - name: Debug - Display Contents of .env
