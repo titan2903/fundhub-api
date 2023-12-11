@@ -19,7 +19,7 @@ COPY . .
 RUN rm .gitignore
 
 # Uncomment the line below if you have an environment file
-COPY .env .env
+COPY .env.example .env
 
 # Build the Go application
 RUN go build -o fundhub-api
