@@ -14,10 +14,7 @@ COPY go.* ./
 RUN go mod download
 
 # Copy the local code to the container image.
-COPY . .
-
-# # Uncomment the line below if you have an environment file
-# COPY .env .env
+COPY . ./
 
 # Build the Go application
 RUN go build -o fundhub-api
@@ -38,6 +35,9 @@ WORKDIR /app
 
 # Copy the compiled application from the build stage to the final image
 COPY --from=build /app/fundhub-api .
+
+# # Uncomment the line below if you have an environment file
+COPY .env .
 
 # Copy the environment file to the final image
 # COPY --from=build /app/.env .
