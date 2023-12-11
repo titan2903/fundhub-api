@@ -16,10 +16,8 @@ RUN go mod download
 # Copy the local code to the container image.
 COPY . .
 
-RUN rm .gitignore
-
-# Uncomment the line below if you have an environment file
-COPY .env.example .env
+# # Uncomment the line below if you have an environment file
+# COPY .env .env
 
 # Build the Go application
 RUN go build -o fundhub-api
@@ -42,7 +40,7 @@ WORKDIR /app
 COPY --from=build /app/fundhub-api .
 
 # Copy the environment file to the final image
-COPY --from=build /app/.env .
+# COPY --from=build /app/.env .
 
 # Expose the port if your application listens on a specific port
 EXPOSE 8000
