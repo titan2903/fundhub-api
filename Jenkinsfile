@@ -11,11 +11,8 @@ pipeline {
 
     stages {
         stage('Unit Test'){
-            agent {
-                docker {
-                    image 'golang:1.21.4-alpine3.18'
-                    label 'sandbox'
-                }
+            docker {
+                image 'golang:1.21.4-alpine3.18'
             }
 
             steps {
