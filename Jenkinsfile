@@ -55,18 +55,18 @@ pipeline {
             steps {
                 echo "Deploying apps"
             }
-
-            post {
-                success {
-                    echo "Post Success"
-                    discordSend description: "Jenkins Pipeline Deploy", footer: "Fundhub Production Deployment Status: Success", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "$WEBHOOK_URL_DISCORD"
-                }
-                failure {
-                    echo "Post Failure"
-                    discordSend description: "Jenkins Pipeline Deploy", footer: "Fundhub Production Deployment Status: Failure", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "$WEBHOOK_URL_DISCORD"
-                }
-            }
         }
 
+    }
+    
+    post {
+        success {
+            echo "Post Success"
+            discordSend description: "Jenkins Pipeline Deploy", footer: "Fundhub Production Deployment Status: Success", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "$WEBHOOK_URL_DISCORD"
+        }
+        failure {
+            echo "Post Failure"
+            discordSend description: "Jenkins Pipeline Deploy", footer: "Fundhub Production Deployment Status: Failure", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "$WEBHOOK_URL_DISCORD"
+        }
     }
 }
