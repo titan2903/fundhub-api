@@ -5,10 +5,12 @@ pipeline {
 
     environment {
         WEBHOOK_URL_DISCORD = credentials('WEBHOOK_URL_DISCORD')
+        DOCKER_USERNAME = credentials('DOCKER_USERNAME')
+        DOCKER_PASSWORD = credentials('DOCKER_PASSWORD')
     }
 
     stages {
-        stage('Test Goapps'){
+        stage('Test Fundhub'){
             agent {
                 docker {
                     image 'golang:1.21.4-alpine3.18'
@@ -25,29 +27,32 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Building Apps"
-                // sh 'docker build -t gcr.io/ancient-alloy-406700/goapps:${BUILD_NUMBER} .'
+                sh 'docker build -t $DOCKER_USERNAME/fundhub:latest .'
             }
         }
 
         stage('Push to DockerHub') {
-            // environment {
-            // }
-
             steps {
                 echo "Pushing to DockerHub"
+                sh "docker login -u $DOCKER_USERNAME -p ${DOCKER_PASSWORD}"
+                sh "docker push $DOCKER_USERNAME/fundhub-api:latest"
             }
 
-            // post {
-            //     success {
-            //         echo "Post Success"
-            //         discordSend description: "Jenkins Pipeline Push", footer: "Push Success image goapps:${BUILD_NUMBER}", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "$WEBHOOK_URL_DISCORD"
-            //     }
+            post {
+                aborted {
+                    echo "Post Aborted"
+                    discordSend description: "Push Docker Image", footer: "Push image fundhub-api:latest to DockerHub Status: Aborted", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "$WEBHOOK_URL_DISCORD"
+                }
+                success {
+                    echo "Post Success"
+                    discordSend description: "Push Docker Image", footer: "Push image fundhub-api:latest to DockerHub Status: Success", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "$WEBHOOK_URL_DISCORD"
+                }
 
-            //     failure {
-            //         echo "Post Failure"
-            //         discordSend description: "Jenkins Pipeline Push", footer: "Push Failure image goapps:${BUILD_NUMBER}", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "$WEBHOOK_URL_DISCORD"
-            //     }
-            // }
+                failure {
+                    echo "Post Failure"
+                    discordSend description: "Push Docker Image", footer: "Push image fundhub-api:latest to DockerHub Status: Failure", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "$WEBHOOK_URL_DISCORD"
+                }
+            }
         }
 
         stage('Deploy') {
