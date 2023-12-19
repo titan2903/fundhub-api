@@ -18,8 +18,8 @@ pipeline {
 
             steps {
                 echo "Testing Golang Apps"
-                    // sh 'GOCACHE=/tmp/ go test -v ./healthcheck'
-                    // sh 'GOCACHE=/tmp/ go test -v ./helper'
+                // sh 'GOCACHE=/tmp/ go test -v ./healthcheck'
+                // sh 'GOCACHE=/tmp/ go test -v ./helper'
             }   
         }
 
