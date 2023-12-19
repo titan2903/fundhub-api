@@ -19,11 +19,11 @@ jobs:
       - name: list of files
         run: ls -la
 
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      # - name: Login to Docker Hub
+      #   uses: docker/login-action@v3
+      #   with:
+      #     username: ${{ secrets.DOCKERHUB_USERNAME }}
+      #     password: ${{ secrets.DOCKERHUB_TOKEN }}
     
       # - name: Build and push for devel branch
       #   if: github.ref == 'refs/heads/devel'
@@ -40,11 +40,3 @@ jobs:
       #     context: .
       #     push: true
       #     tags: ${{ secrets.DOCKERHUB_USERNAME }}/fundhub-api:latest
-
-  # release:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v3
-  #       with:
-  #         fetch-depth: 0

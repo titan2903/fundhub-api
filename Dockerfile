@@ -18,7 +18,7 @@ COPY . .
 COPY .env .
 
 # Build the Go application
-RUN go build -o fundhub-api .
+RUN go build -o fundhub-api-dev .
 
 # STEP 2: Create a smaller image for the final application
 
@@ -29,11 +29,11 @@ FROM alpine:latest
 WORKDIR /app
 
 # Copy only the necessary artifacts from the build stage
-COPY --from=build /app/fundhub-api .
+COPY --from=build /app/fundhub-api-dev .
 COPY --from=build /app/.env .
 
 # Expose the port if your application listens on a specific port
 EXPOSE 8000
 
 # Define the command to run your application
-CMD ["./fundhub-api"]
+CMD ["./fundhub-api-dev"]
