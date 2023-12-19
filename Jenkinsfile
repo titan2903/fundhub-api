@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label any
+        label fire
     }
 
     // environment {
@@ -12,7 +12,7 @@ pipeline {
             agent {
                 docker {
                     image 'golang:1.21.4-alpine3.18'
-                    label any
+                    label fire
                 }
             }
 
