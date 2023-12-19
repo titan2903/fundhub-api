@@ -17,14 +17,15 @@ pipeline {
             }
 
             steps {
-                echo "Test Golang Apps"
-                sh 'GOCACHE=/tmp/ go test -v ./...'
+                echo "Testing Golang Apps"
+                sh 'GOCACHE=/tmp/ go test -v ./healthcheck'
+                sh 'GOCACHE=/tmp/ go test -v ./helper'
             }   
         }
 
         stage('Build') {
             steps {
-                echo "Build Apps"
+                echo "Building Apps"
                 // sh 'docker build -t gcr.io/ancient-alloy-406700/goapps:${BUILD_NUMBER} .'
             }
         }
@@ -34,7 +35,7 @@ pipeline {
             // }
 
             steps {
-                echo "push to "
+                echo "Pushing to DockerHub"
             }
 
             // post {
@@ -52,9 +53,10 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo "Deploy apps"
+                echo "Deploying apps"
             }
         }
+
     }
     
     // post {
