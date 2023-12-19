@@ -27,7 +27,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Building Apps"
-                sh 'docker build -t $DOCKER_USERNAME/fundhub:latest .'
+                sh 'docker build -t $DOCKER_USERNAME/fundhub-api:latest .'
             }
         }
 
