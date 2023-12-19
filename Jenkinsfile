@@ -3,9 +3,9 @@ pipeline {
         label 'fire'
     }
 
-    // environment {
-    //     WEBHOOK_URL_DISCORD = credentials('WEBHOOK_URL_DISCORD')
-    // }
+    environment {
+        WEBHOOK_URL_DISCORD = credentials('WEBHOOK_URL_DISCORD')
+    }
 
     stages {
         stage('Test Goapps'){
@@ -59,14 +59,14 @@ pipeline {
 
     }
     
-    // post {
-    //     success {
-    //         echo "Post Success"
-    //         discordSend description: "Jenkins Pipeline Deploy", footer: "Deploy Success", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "$WEBHOOK_URL_DISCORD"
-    //     }
-    //     failure {
-    //         echo "Post Failure"
-    //         discordSend description: "Jenkins Pipeline Deploy", footer: "Deploy Failure", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "$WEBHOOK_URL_DISCORD"
-    //     }
-    // }
+    post {
+        success {
+            echo "Post Success"
+            discordSend description: "Jenkins Pipeline Deploy", footer: "Fundhub Production Deployment Status: Success", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "$WEBHOOK_URL_DISCORD"
+        }
+        failure {
+            echo "Post Failure"
+            discordSend description: "Jenkins Pipeline Deploy", footer: "Fundhub Production Deployment Status: Failure", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "$WEBHOOK_URL_DISCORD"
+        }
+    }
 }
