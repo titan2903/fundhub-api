@@ -10,7 +10,7 @@ pipeline {
     }
 
     stages {
-        stage('Test Fundhub Service'){
+        stage('Unit Test'){
             agent {
                 docker {
                     image 'golang:1.21.4-alpine3.18'
