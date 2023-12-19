@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label fire
+        label 'fire'
     }
 
     // environment {
@@ -12,14 +12,14 @@ pipeline {
             agent {
                 docker {
                     image 'golang:1.21.4-alpine3.18'
-                    label fire
+                    label 'fire'
                 }
             }
 
             steps {
                 echo "Testing Golang Apps"
-                // sh 'GOCACHE=/tmp/ go test -v ./healthcheck'
-                // sh 'GOCACHE=/tmp/ go test -v ./helper'
+                sh 'GOCACHE=/tmp/ go test -v ./healthcheck'
+                sh 'GOCACHE=/tmp/ go test -v ./helper'
             }   
         }
 
