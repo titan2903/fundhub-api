@@ -9,12 +9,12 @@ pipeline {
 
     stages {
         stage('Test Goapps'){
-            // agent {
-            //     docker {
-            //         image 'golang:1.21.4-alpine3.18'
-            //         label 'fire'
-            //     }
-            // }
+            agent {
+                docker {
+                    image 'golang:1.21.4-alpine3.18'
+                    label 'fire'
+                }
+            }
 
             steps {
                 echo "Testing Golang Apps"
