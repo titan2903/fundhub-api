@@ -25,21 +25,21 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
     
-      - name: Build and push for devel branch
-        if: github.ref == 'refs/heads/devel'
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/fundhub-api-dev:latest
+      # - name: Build and push for devel branch
+      #   if: github.ref == 'refs/heads/devel'
+      #   uses: docker/build-push-action@v5
+      #   with:
+      #     context: .
+      #     push: true
+      #     tags: ${{ secrets.DOCKERHUB_USERNAME }}/fundhub-api-dev:latest
       
-      - name: Build and push for master branch
-        if: github.ref == 'refs/heads/master'
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/fundhub-api:latest
+      # - name: Build and push for master branch
+      #   if: github.ref == 'refs/heads/master'
+      #   uses: docker/build-push-action@v5
+      #   with:
+      #     context: .
+      #     push: true
+      #     tags: ${{ secrets.DOCKERHUB_USERNAME }}/fundhub-api:latest
 
   # release:
   #   runs-on: ubuntu-latest
