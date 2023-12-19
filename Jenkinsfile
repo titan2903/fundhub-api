@@ -53,7 +53,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo "Deploying apps"
+                echo "Deploying Service"
             }
         }
 
