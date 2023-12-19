@@ -10,7 +10,7 @@ pipeline {
     }
 
     stages {
-        stage('Test Goapps'){
+        stage('Test Fundhub Service'){
             agent {
                 docker {
                     image 'golang:1.21.4-alpine3.18'
@@ -19,7 +19,7 @@ pipeline {
             }
 
             steps {
-                echo "Testing Golang Apps"
+                echo "Testing Fundhub service"
                 sh 'GOCACHE=/tmp/ go test -v ./...'
             }   
         }
