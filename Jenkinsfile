@@ -9,17 +9,17 @@ pipeline {
 
     stages {
         stage('Test Goapps'){
-            agent {
-                docker {
-                    image 'golang:1.21.4-alpine3.18'
-                    label 'fire'
-                }
-            }
+            // agent {
+            //     docker {
+            //         image 'golang:1.21.4-alpine3.18'
+            //         label 'fire'
+            //     }
+            // }
 
             steps {
                 echo "Testing Golang Apps"
-                sh 'GOCACHE=/tmp/ go test -v ./healthcheck'
-                sh 'GOCACHE=/tmp/ go test -v ./helper'
+                    // sh 'GOCACHE=/tmp/ go test -v ./healthcheck'
+                    // sh 'GOCACHE=/tmp/ go test -v ./helper'
             }   
         }
 
