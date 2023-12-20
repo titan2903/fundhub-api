@@ -27,7 +27,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Building Apps"
-                sh "docker build -t $DOCKER_USERNAME/fundhub-api-dev:latest ."
+                sh "docker build -t $DOCKER_USERNAME/fundhub-api-dev:${BUILD_NUMBER} ."
             }
         }
 
@@ -35,22 +35,22 @@ pipeline {
              steps {
                 echo "Pushing to DockerHub"
                 sh "docker login -u $DOCKER_USERNAME -p ${DOCKER_PASSWORD}"
-                sh "docker push $DOCKER_USERNAME/fundhub-api-dev:latest"
+                sh "docker push $DOCKER_USERNAME/fundhub-api-dev:${BUILD_NUMBER}"
             }
 
             post {
                 aborted {
                     echo "Post Aborted"
-                    discordSend description: "Push Docker Image", footer: "Push image fundhub-api-dev:latest to DockerHub Status: Aborted", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "$WEBHOOK_URL_DISCORD"
+                    discordSend description: "Push Docker Image", footer: "Push image fundhub-api-dev:${BUILD_NUMBER} to DockerHub Status: Aborted", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "$WEBHOOK_URL_DISCORD"
                 }
                 success {
                     echo "Post Success"
-                    discordSend description: "Push Docker Image", footer: "Push image fundhub-api-dev:latest to DockerHub Status: Success", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "$WEBHOOK_URL_DISCORD"
+                    discordSend description: "Push Docker Image", footer: "Push image fundhub-api-dev:${BUILD_NUMBER} to DockerHub Status: Success", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "$WEBHOOK_URL_DISCORD"
                 }
 
                 failure {
                     echo "Post Failure"
-                    discordSend description: "Push Docker Image", footer: "Push image fundhub-api-dev:latest to DockerHub Status: Failure", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "$WEBHOOK_URL_DISCORD"
+                    discordSend description: "Push Docker Image", footer: "Push image fundhub-api-dev:${BUILD_NUMBER} to DockerHub Status: Failure", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "$WEBHOOK_URL_DISCORD"
                 }
             }
         }
@@ -58,6 +58,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo "Deploying Service"
+                // Delete all docker images after push to DockerHub
+                // sh 'docker rmi $(docker images -q)'
             }
         }
 
