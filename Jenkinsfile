@@ -59,7 +59,7 @@ pipeline {
             steps {
                 echo "Deploying Service"
                 // Delete all docker images after push to DockerHub
-                // sh 'docker rmi $(docker images -q)'
+                sh 'docker rmi $(docker images -q)'
             }
         }
 
