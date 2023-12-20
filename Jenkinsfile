@@ -58,6 +58,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo "Deploying apps"
+                // Delete all docker images after push to DockerHub
+                sh 'docker rmi $(docker images -q)'
             }
         }
 
