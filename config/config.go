@@ -31,6 +31,7 @@ func ConnectDB() *gorm.DB {
 	if err = db.AutoMigrate(
 		&user.User{},
 		&campaign.Campaign{},
+		&campaign.CampaignImage{},
 		&transaction.Transaction{},
 	); err != nil {
 		log.Fatal(err)
