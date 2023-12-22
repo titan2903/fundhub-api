@@ -4,28 +4,35 @@ import (
 	"path/filepath"
 
 	"github.com/gin-contrib/multitemplate"
+	"github.com/labstack/gommon/log"
 )
 
-//! This is a custom HTML render to support multi templates, ie. more than one *template.Template.
+// LoadTemplates is a custom HTML renderer to support multi templates
 func LoadTemplates(templatesDir string) multitemplate.Renderer {
 	r := multitemplate.NewRenderer()
 
-	layouts, err := filepath.Glob(templatesDir + "/layouts/*") //! mengeload semua folder yang ada di dalam forlder template
+	// Load layout templates
+	layouts, err := filepath.Glob(filepath.Join(templatesDir, "layouts", "*"))
 	if err != nil {
+		log.Error(err.Error())
 		panic(err.Error())
 	}
 
-	includes, err := filepath.Glob(templatesDir + "/**/*") //! mengeload semua folder yang ada di dalam forlder template selain layouts
+	// Load all templates, excluding layouts
+	includes, err := filepath.Glob(filepath.Join(templatesDir, "**", "*"))
 	if err != nil {
+		log.Error(err.Error())
 		panic(err.Error())
 	}
 
-	//? Generate our templates map from our layouts/ and includes/ directories
+	// Generate the templates map from layout and include directories
 	for _, include := range includes {
 		layoutCopy := make([]string, len(layouts))
 		copy(layoutCopy, layouts)
 		files := append(layoutCopy, include)
-		r.AddFromFiles(filepath.Base(include), files...)
+		// Use filepath.ToSlash to ensure consistency across different OS
+		r.AddFromFiles(filepath.ToSlash(filepath.Base(include)), files...)
 	}
+
 	return r
 }

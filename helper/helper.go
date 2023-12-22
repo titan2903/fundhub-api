@@ -52,3 +52,11 @@ func GoDotEnvVariable(key string) string {
 
 	return os.Getenv(key)
 }
+
+func Getwd() string {
+	wd, err := os.Getwd()
+	if err != nil {
+		return "unknown"
+	}
+	return wd
+}
