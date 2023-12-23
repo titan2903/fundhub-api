@@ -6,7 +6,7 @@ import (
 	"github.com/gin-contrib/multitemplate"
 )
 
-//! This is a custom HTML render to support multi templates, ie. more than one *template.Template.
+// ! This is a custom HTML render to support multi templates, ie. more than one *template.Template.
 func LoadTemplates(templatesDir string) multitemplate.Renderer {
 	r := multitemplate.NewRenderer()
 
