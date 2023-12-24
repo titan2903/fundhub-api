@@ -1,7 +1,7 @@
 # STEP 1: Build the executable binary
 
 # Use the official Golang image as the build stage
-FROM golang:alpine3.18 AS build
+FROM golang:alpine3.18
 
 # Set a label for the maintainer
 LABEL maintainer="Titanio Yudista <titanioyudista98@gmail.com>"
@@ -18,17 +18,6 @@ COPY . .
 
 # Build the Go application
 RUN go build -o fundhub-api .
-
-# STEP 2: Create a smaller image for the final application
-
-# Use a minimal Alpine Linux image as the final stage
-FROM alpine:latest
-
-# Set the working directory in the final stage
-WORKDIR /app
-
-# Copy only the necessary artifacts from the build stage
-COPY --from=build /app/fundhub-api .
 
 # Expose the port if your application listens on a specific port
 EXPOSE 8000
