@@ -7,7 +7,7 @@ import (
 	"github.com/labstack/gommon/log"
 )
 
-// LoadTemplates is a custom HTML renderer to support multi templates
+// ! This is a custom HTML render to support multi templates, ie. more than one *template.Template.
 func LoadTemplates(templatesDir string) multitemplate.Renderer {
 	r := multitemplate.NewRenderer()
 
