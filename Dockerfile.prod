@@ -17,10 +17,11 @@ RUN go mod download
 COPY . .
 
 # Build the Go application
-RUN go build -o fundhub-api-dev .
+RUN go build -o fundhub-api .
 
 # Expose the port if your application listens on a specific port
 EXPOSE 8000
 
 # Define the command to run your application
-CMD ["./fundhub-api-dev"]
+CMD ["./fundhub-api"]
+
