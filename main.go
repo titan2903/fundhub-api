@@ -19,9 +19,12 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
+	"github.com/labstack/gommon/log"
 )
 
 func main() {
+	// Helper function to get the current working directory
+	log.Info("Current Working Directory:", helper.Getwd())
 
 	db := config.ConnectDB()
 
@@ -71,7 +74,7 @@ func main() {
 	router.Use(sessions.Sessions("testbanana", cookieStore))
 
 	//! HTML Render
-	router.HTMLRender = libraryloadtemplate.LoadTemplates("./web/templates") //! mengeload tamplate yang ada di dalam folder template
+	router.HTMLRender = libraryloadtemplate.LoadTemplates("./web/templates/") //! mengeload tamplate yang ada di dalam folder template
 
 	api := router.Group("/api/v1")
 
