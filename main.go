@@ -1,7 +1,6 @@
 package main
 
 import (
-	"crypto/tls"
 	"fmt"
 	"fundhub-api/auth"
 	"fundhub-api/campaign"
@@ -14,7 +13,6 @@ import (
 	"fundhub-api/payment"
 	"fundhub-api/transaction"
 	"fundhub-api/user"
-	"net/http"
 
 	webHandler "fundhub-api/web/handler"
 
@@ -68,31 +66,31 @@ func main() {
 	}
 	sPort := fmt.Sprintf(":%s", port)
 
-	cert, err := tls.LoadX509KeyPair("server.crt", "server.key")
-	if err != nil {
-		log.Errorf("Failed to load X509 key pair: %v", err)
-	}
+	// cert, err := tls.LoadX509KeyPair("server.crt", "server.key")
+	// if err != nil {
+	// 	log.Errorf("Failed to load X509 key pair: %v", err)
+	// }
 
-	config := &tls.Config{
-		Certificates: []tls.Certificate{cert},
-	}
+	// config := &tls.Config{
+	// 	Certificates: []tls.Certificate{cert},
+	// }
 
 	router := gin.Default()
 	router.Use(middleware.CORSMiddleware()) // ! Allow cors
 	router.ForwardedByClientIP = true
 	router.SetTrustedProxies([]string{"127.0.0.1", "34.128.71.87"})
 
-	server := &http.Server{
-		Addr:      port,
-		Handler:   router,
-		TLSConfig: config,
-	}
+	// server := &http.Server{
+	// 	Addr:      port,
+	// 	Handler:   router,
+	// 	TLSConfig: config,
+	// }
 
-	log.Printf("Listening on %s...", port)
-	err = server.ListenAndServeTLS("server.crt", "server.key")
-	if err != nil {
-		log.Errorf("Failed to start server: %v", err)
-	}
+	// log.Printf("Listening on %s...", port)
+	// err = server.ListenAndServeTLS("server.crt", "server.key")
+	// if err != nil {
+	// 	log.Errorf("Failed to start server: %v", err)
+	// }
 
 	//!Session
 	cookieStore := cookie.NewStore([]byte(auth.SECRET_KEY))
