@@ -47,7 +47,7 @@ func GoDotEnvVariable(key string) string {
 	// load .env file
 	_ = godotenv.Load()
 	// if err != nil {
-	// 	log.Fatalf("Error loading .env file")
+	// 	log.Errorf("Error loading .env file")
 	// }
 
 	return os.Getenv(key)
