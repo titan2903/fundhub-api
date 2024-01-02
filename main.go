@@ -77,8 +77,8 @@ func main() {
 
 	router := gin.Default()
 	router.Use(middleware.CORSMiddleware()) // ! Allow cors
-	router.ForwardedByClientIP = true
-	router.SetTrustedProxies([]string{"127.0.0.1", "34.128.71.87"})
+	// router.ForwardedByClientIP = true
+	// router.SetTrustedProxies([]string{"127.0.0.1", "34.128.71.87"})
 
 	// server := &http.Server{
 	// 	Addr:      port,
