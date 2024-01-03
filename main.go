@@ -136,7 +136,6 @@ func main() {
 
 	err := router.Run(sPort) //! default PORT 8000
 	if err != nil {
-		log.Error("[Error] failed to start Gin server due to: " + err.Error())
+		log.Errorf("failed to start golang server due to: %v" + err.Error())
 	}
-	// router.RunTLS(sPort, "server.crt", "server.key") //! default PORT 8000
 }
