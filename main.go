@@ -68,8 +68,6 @@ func main() {
 
 	router := gin.Default()
 	router.Use(middleware.CORSMiddleware()) // ! Allow cors
-	// router.ForwardedByClientIP = true
-	router.SetTrustedProxies([]string{"127.0.0.1"})
 
 	//!Session
 	cookieStore := cookie.NewStore([]byte(auth.SECRET_KEY))
@@ -136,9 +134,9 @@ func main() {
 	//!Router Web Static Transactions
 	router.GET("/transactions", middleware.AuthAdminMiddleware(), transactionWebHandler.Index)
 
-	// err := router.Run(sPort) //! default PORT 8000
-	// if err != nil {
-	// 	log.Error("[Error] failed to start Gin server due to: " + err.Error())
-	// }
-	router.RunTLS(sPort, "server.crt", "server.key") //! default PORT 8000
+	err := router.Run(sPort) //! default PORT 8000
+	if err != nil {
+		log.Error("[Error] failed to start Gin server due to: " + err.Error())
+	}
+	// router.RunTLS(sPort, "server.crt", "server.key") //! default PORT 8000
 }
