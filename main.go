@@ -77,8 +77,8 @@ func main() {
 
 	router := gin.Default()
 	router.Use(middleware.CORSMiddleware()) // ! Allow cors
-	// router.ForwardedByClientIP = true
-	// router.SetTrustedProxies([]string{"127.0.0.1", "34.128.71.87"})
+	router.ForwardedByClientIP = true
+	router.SetTrustedProxies([]string{"127.0.0.1", "34.101.122.225"})
 
 	// server := &http.Server{
 	// 	Addr:      port,
@@ -157,5 +157,6 @@ func main() {
 	//!Router Web Static Transactions
 	router.GET("/transactions", middleware.AuthAdminMiddleware(), transactionWebHandler.Index)
 
-	router.Run(sPort) //! default PORT 8000
+	// router.Run(sPort) //! default PORT 8000
+	router.RunTLS(sPort, "server.crt", "server.key") //! default PORT 8000
 }
