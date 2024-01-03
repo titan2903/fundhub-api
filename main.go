@@ -66,31 +66,10 @@ func main() {
 	}
 	sPort := fmt.Sprintf(":%s", port)
 
-	// cert, err := tls.LoadX509KeyPair("server.crt", "server.key")
-	// if err != nil {
-	// 	log.Errorf("Failed to load X509 key pair: %v", err)
-	// }
-
-	// config := &tls.Config{
-	// 	Certificates: []tls.Certificate{cert},
-	// }
-
 	router := gin.Default()
 	router.Use(middleware.CORSMiddleware()) // ! Allow cors
-	router.ForwardedByClientIP = true
-	router.SetTrustedProxies([]string{"127.0.0.1", "34.101.122.225"})
-
-	// server := &http.Server{
-	// 	Addr:      port,
-	// 	Handler:   router,
-	// 	TLSConfig: config,
-	// }
-
-	// log.Printf("Listening on %s...", port)
-	// err = server.ListenAndServeTLS("server.crt", "server.key")
-	// if err != nil {
-	// 	log.Errorf("Failed to start server: %v", err)
-	// }
+	// router.ForwardedByClientIP = true
+	router.SetTrustedProxies([]string{"127.0.0.1"})
 
 	//!Session
 	cookieStore := cookie.NewStore([]byte(auth.SECRET_KEY))
@@ -157,6 +136,9 @@ func main() {
 	//!Router Web Static Transactions
 	router.GET("/transactions", middleware.AuthAdminMiddleware(), transactionWebHandler.Index)
 
-	// router.Run(sPort) //! default PORT 8000
+	// err := router.Run(sPort) //! default PORT 8000
+	// if err != nil {
+	// 	log.Error("[Error] failed to start Gin server due to: " + err.Error())
+	// }
 	router.RunTLS(sPort, "server.crt", "server.key") //! default PORT 8000
 }
