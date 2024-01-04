@@ -6,7 +6,8 @@ import (
 	"fundhub-api/helper"
 	"fundhub-api/transaction"
 	"fundhub-api/user"
-	"log"
+
+	"github.com/labstack/gommon/log"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -37,7 +38,7 @@ func ConnectDB() *gorm.DB {
 		log.Fatal(err)
 	}
 
-	log.Println("success connect to database")
+	log.Info("success connect to database")
 
 	return db
 }

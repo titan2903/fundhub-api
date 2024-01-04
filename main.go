@@ -134,7 +134,8 @@ func main() {
 	//!Router Web Static Transactions
 	router.GET("/transactions", middleware.AuthAdminMiddleware(), transactionWebHandler.Index)
 
-	router.Run(sPort) //! default PORT 8080
+	err := router.Run(sPort) //! default PORT 8000
+	if err != nil {
+		log.Errorf("failed to start golang server due to: %v" + err.Error())
+	}
 }
-
-//! input (memasukkan data atau mengirim request dari client) -> Handler (mapping input ke struct) -> memanggil Service (melakukan bisnis proses, mapping struct) -> repository(akses ke database, berupa CRUD) -> memanggil DB
