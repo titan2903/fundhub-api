@@ -14,10 +14,8 @@ func NewService() *service {
 }
 
 func (s *service) HealthcheckService() (Healthcheck, error) {
-	// You need to implement the logic to perform the health check here
-	// For demonstration purposes, I'm creating a simple Healthcheck with static values.
 	check := Healthcheck{
-		ServiceName: "Golang Fundhub Services",
+		ServiceName: "Golang Fundhub Services v1",
 		Status:      "OK",
 		Description: "Everything is running well",
 		Timestamp:   time.Now().Format("2006-01-02 15:04:05"),
