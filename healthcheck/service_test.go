@@ -33,7 +33,7 @@ func TestHealthcheckService(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Assert that the returned Healthcheck has the expected ServiceName
-	assert.Equal(t, "Golang Fundhub Services v1", result.ServiceName)
+	assert.Equal(t, "Golang Fundhub Services v2", result.ServiceName)
 
 	// Add more assertions based on the expected values for your specific case
 
